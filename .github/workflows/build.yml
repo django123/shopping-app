@@ -62,17 +62,6 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            echo '[Unit]
-            Description=Shopping App
-            After=network.target
-
-            [Service]
-            User=devops
-            ExecStart=/usr/bin/java -jar /home/devops/shopping-app/target/shopping-app.jar
-            Restart=always
-
-            [Install]
-            WantedBy=multi-user.target' | sudo tee /etc/systemd/system/shopping-app.service
-            sudo systemctl daemon-reload
-            sudo systemctl enable shopping-app
-            sudo systemctl start shopping-app
+            cd /home/devops/shopping-app/target
+             nohup java -jar shopping-app.jar > shopping-app.log 2>&1 &
+             echo $! > shopping-app.pid
