@@ -130,5 +130,6 @@ jobs:
           password: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-              cd /home/devops/shopping-app
-              nohup java -jar shopping-app.jar &
+            cd /home/devops/shopping-app
+            nohup java -jar shopping-app.jar > shopping-app.log 2>&1 &
+            echo $! > shopping-app.pid
