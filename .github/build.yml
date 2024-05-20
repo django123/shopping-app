@@ -1,0 +1,23 @@
+name: Contrustion d'un build pour shopping-app
+
+on:
+  push:
+    branches: ["master"]
+
+
+jobs:
+  build:
+
+    run-on: ubuntu-latest
+
+    steps:
+      - name: Télechargement des sources
+        uses: action/checkout@v3
+      - name: Setup up JDK 17
+        uses: action/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+      - name: Build with maven
+        run: mvn -Dmaven.tests.skip=true -B package --file pom.xml

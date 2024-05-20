@@ -1,0 +1,35 @@
+package com.django.it.shoppingapp.model;
+
+
+import lombok.*;
+
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static com.django.it.shoppingapp.model.Permission.*;
+
+@RequiredArgsConstructor
+public enum Role  {
+    ADMIN(
+            Set.of(READ_PRIVILEGE,WRITE_PRIVILEGE,UPDATE_PRIVILEGE,DELETE_PRIVILEGE)
+    ),
+    USER(
+            Set.of(READ_PRIVILEGE,WRITE_PRIVILEGE)
+    );
+
+    @Getter
+    private final Set<Permission> privileges;
+
+    public List<SimpleGrantedAuthority> getAuthorities(){
+        List<SimpleGrantedAuthority> authorities = getPrivileges()
+                .stream()
+                .map(privilege -> new SimpleGrantedAuthority(privilege.name()))
+                .collect(Collectors.toList());
+        authorities.add(new SimpleGrantedAuthority("ROLE_"+this.name()));
+        return authorities;
+    }
+}
