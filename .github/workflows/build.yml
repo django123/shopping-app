@@ -3,7 +3,7 @@ name: Contrustion d'un build pour shopping-app
 on:
   push:
     branches: ["master"]
-  workflow_dispastch:
+  workflow_dispatch:
 
 
 jobs:
