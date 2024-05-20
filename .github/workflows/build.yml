@@ -68,7 +68,7 @@ jobs:
 
             [Service]
             User=devops
-            ExecStart=/usr/bin/java -jar /home/devops/shopping-app/shopping-app.jar
+            ExecStart=/usr/bin/java -jar /home/devops/shopping-app/target/shopping-app.jar
             Restart=always
 
             [Install]
