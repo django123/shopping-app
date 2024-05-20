@@ -36,12 +36,3 @@ jobs:
       - name: Rename jar
         run: mv target/*.jar target/shopping-app.jar
 
-      - name: copy file via ssh password
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
-          source: "target/shopping-app.jar"
-          target: /opt/applications/shopping-app
