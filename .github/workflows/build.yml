@@ -45,3 +45,19 @@ jobs:
           port: ${{ secrets.PORT }}
           source: "target/shopping-app.jar"
           target: /home/devops/shopping-app
+
+  run script:
+    name: run script
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Create folder on remote vm
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            ln -sf  /home/devops/shopping-app  /etc/init.d/shopping-app
+            service start shopping-app
