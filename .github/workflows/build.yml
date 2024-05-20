@@ -18,7 +18,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          script: mkdir -p /opt/shopping-app
+          script: mkdir -p /home/devops/shopping-app
   build:
     runs-on: ubuntu-latest
 
