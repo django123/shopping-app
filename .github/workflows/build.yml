@@ -18,7 +18,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          script: whoami
+          script: mkdir -p /opt/applications/shopping-app
   build:
     runs-on: ubuntu-latest
     steps:
@@ -34,3 +34,14 @@ jobs:
         run: mvn -Dmaven.test.skip=true -B package --file pom.xml
       - name: Rename jar
         run: mv target/*.jar target/shopping-app.jar
+
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@v0.1.7
+        needs: create-folder
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          source: "target/shopping-app.jar"
+          target: /opt/applications/shopping-app
