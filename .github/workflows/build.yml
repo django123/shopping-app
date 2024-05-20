@@ -46,7 +46,7 @@ jobs:
           source: "target/shopping-app.jar"
           target: /home/devops/shopping-app
 
-  run script:
+  run-script:
     name: run script
     runs-on: ubuntu-latest
     needs: build
