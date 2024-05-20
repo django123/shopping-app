@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Create folder on remote vm
+      - name: Create systemd service on remote vm
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.HOST }}
@@ -62,5 +62,17 @@ jobs:
           password: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            ln -sf  /home/devops/shopping-app/target/shopping-app.jar  /etc/init.d/shopping-app
-            service start shopping-app
+            echo '[Unit]
+            Description=Shopping App
+            After=network.target
+
+            [Service]
+            User=devops
+            ExecStart=/usr/bin/java -jar /home/devops/shopping-app/shopping-app.jar
+            Restart=always
+
+            [Install]
+            WantedBy=multi-user.target' | sudo tee /etc/systemd/system/shopping-app.service
+            sudo systemctl daemon-reload
+            sudo systemctl enable shopping-app
+            sudo systemctl start shopping-app
