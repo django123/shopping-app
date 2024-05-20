@@ -21,7 +21,7 @@ jobs:
           script: mkdir -p /home/devops/shopping-app
   build:
     runs-on: ubuntu-latest
-
+    needs: create-folder
     steps:
       - name: Télechargement des sources
         uses: actions/checkout@v3
