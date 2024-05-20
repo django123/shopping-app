@@ -20,4 +20,4 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build with maven
-        run: mvn -Dmaven.tests.skip=true -B package --file pom.xml
+        run: mvn -Dmaven.test.skip=true -B package --file pom.xml
