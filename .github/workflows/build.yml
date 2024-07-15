@@ -36,7 +36,7 @@ jobs:
       - name: Build with maven
         run: mvn -Dmaven.test.skip=true -B package --file pom.xml
       - name: Rename jar
-        run: mv target/shopping-app.jar target/shopping-app.jar
+        run: mv target/shopping-app.jar target/shopping-app-0.0.1.jar
 
       - name: copy file via ssh password
         uses: appleboy/scp-action@v0.1.7
@@ -63,5 +63,5 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd /home/devops/shopping-app/target
-             nohup java -jar shopping-app.jar > shopping-app.log 2>&1 &
+             nohup java -jar shopping-app-0.0.1.jar > shopping-app.log 2>&1 &
              echo $! > shopping-app.pid
