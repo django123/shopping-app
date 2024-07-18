@@ -33,7 +33,7 @@ import java.io.IOException;
 
 @Tag(name = "Authentication", description = "The Authentication API. Contains operations like login, logout, refresh-token etc.")
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("auth")
 @SecurityRequirements() /*
 This API won't have any security requirements. Therefore, we need to override the default security requirement configuration
 with @SecurityRequirements()

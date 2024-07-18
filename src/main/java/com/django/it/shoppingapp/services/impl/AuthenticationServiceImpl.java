@@ -4,6 +4,7 @@ import com.django.it.shoppingapp.dtos.requests.AuthenticationRequest;
 import com.django.it.shoppingapp.dtos.requests.RegisterRequest;
 import com.django.it.shoppingapp.dtos.responses.AuthenticationResponse;
 import com.django.it.shoppingapp.enums.TokenType;
+import com.django.it.shoppingapp.model.Role;
 import com.django.it.shoppingapp.model.User;
 import com.django.it.shoppingapp.repositories.UserRepository;
 import com.django.it.shoppingapp.services.AuthenticationService;
@@ -34,7 +35,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .lastname(request.getLastname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(request.getRole())
+                .role(Role.USER)
                 .build();
         user = userRepository.save(user);
         var jwt = jwtService.generateToken(user);

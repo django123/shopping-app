@@ -15,11 +15,11 @@ public interface ShoppingService {
 
     PageResponse<ShoppingResponse> findAllShopping(int page, int size);
     ShoppingResponse findShoppingById(Integer id);
-    void addShopping(ShoppingRequest shoppingRequest, Authentication authentication);
+    void addShopping(ShoppingRequest shoppingRequest);
     void updateShopping(ShoppingRequest shoppingRequest,Integer id);
     void deleteShoppingById(Integer id);
-    void shareShopping(Share share, Integer shopId, Authentication authentication);
-    List<ShoppingResponse> findAllShoppingArchived(Authentication connectedUser);
+    void shareShopping(Share share, Integer shopId);
+    List<ShoppingResponse> findAllShoppingArchived();
     void archived(Integer id);
-    List<ShoppingResponse> sharedShopping(Authentication connectedUser);
+    List<ShoppingResponse> sharedShopping();
 }

@@ -19,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -59,7 +60,8 @@ public class ShoppingServiceImplement implements ShoppingService {
     }
 
     @Override
-    public void addShopping(ShoppingRequest shoppingRequest, Authentication authentication) {
+    public void addShopping(ShoppingRequest shoppingRequest) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         User user1 = userRepository.findById(user.getId()).orElseThrow(()-> new EntityNotFoundException("Not user found with id: " + user.getId()));
         Shopping shopping = shoppingMapper.mapToShopping(shoppingRequest);
@@ -84,7 +86,8 @@ public class ShoppingServiceImplement implements ShoppingService {
     }
 
     @Override
-    public void shareShopping(Share share,  Integer shopId, Authentication authentication) {
+    public void shareShopping(Share share,  Integer shopId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user =((User) authentication.getPrincipal());
         User user1 = userRepository.findById(user.getId()).orElseThrow(()-> new EntityNotFoundException("Not user found with id: " + user.getId()));
         Shopping shopping = shoppingRepository.findById(shopId).orElseThrow(()-> new EntityNotFoundException("Not shopping found with id: " + shopId));
@@ -96,7 +99,8 @@ public class ShoppingServiceImplement implements ShoppingService {
     }
 
     @Override
-    public List<ShoppingResponse> findAllShoppingArchived( Authentication connectedUser) {
+    public List<ShoppingResponse> findAllShoppingArchived( ) {
+        Authentication connectedUser = SecurityContextHolder.getContext().getAuthentication();
         User user =((User) connectedUser.getPrincipal());
         List<Shopping> shoppings = shoppingRepository.findByArchived(true);
         List<Shopping> shoppings2 = shoppingRepository.findByUsers_Id(user.getId());
@@ -127,7 +131,8 @@ public class ShoppingServiceImplement implements ShoppingService {
     }
 
     @Override
-    public List<ShoppingResponse> sharedShopping(Authentication connectedUser){
+    public List<ShoppingResponse> sharedShopping(){
+        Authentication connectedUser = SecurityContextHolder.getContext().getAuthentication();
         User user =((User) connectedUser.getPrincipal());
         List<Shopping> shoppings1 = shoppingRepository.findByShared(true);
         List<Shopping> shoppings2 = shoppingRepository.findByUsers_Id(user.getId());

@@ -23,6 +23,6 @@ public class RegisterRequest {
     @NotBlank(message = "password is required")
     @StrongPassword
     private String password;
-    @NotNull
-    private Role role;
+/*    @NotNull
+    private Role role;*/
 }

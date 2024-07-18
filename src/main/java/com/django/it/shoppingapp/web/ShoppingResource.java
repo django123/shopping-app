@@ -38,8 +38,8 @@ public class ShoppingResource {
     }
 
     @PostMapping
-    public ResponseEntity<String> createShopping(@Valid @RequestBody ShoppingRequest shoppingRequest, Authentication connectedUser) {
-        shoppingService.addShopping(shoppingRequest, connectedUser);
+    public ResponseEntity<String> createShopping(@Valid @RequestBody ShoppingRequest shoppingRequest) {
+        shoppingService.addShopping(shoppingRequest);
         return ResponseEntity.ok("Shopping created successfully");
     }
 
@@ -56,15 +56,15 @@ public class ShoppingResource {
     }
 
     @GetMapping("/archive")
-    public ResponseEntity<List<ShoppingResponse>> findAllShoppingArchived(Authentication connectedUser) {
+    public ResponseEntity<List<ShoppingResponse>> findAllShoppingArchived() {
 
-        return ResponseEntity.ok(shoppingService.findAllShoppingArchived(connectedUser));
+        return ResponseEntity.ok(shoppingService.findAllShoppingArchived());
     }
 
     @GetMapping("/shared")
-    public ResponseEntity<List<ShoppingResponse>> sharedShopping(Authentication connectedUser) {
+    public ResponseEntity<List<ShoppingResponse>> sharedShopping() {
 
-        return ResponseEntity.ok(shoppingService.sharedShopping(connectedUser));
+        return ResponseEntity.ok(shoppingService.sharedShopping());
     }
 
     @GetMapping("/archive/{shop-id}")
@@ -74,8 +74,8 @@ public class ShoppingResource {
     }
 
     @GetMapping("/share/{shop-id}")
-    public ResponseEntity<String> shareShopping(@Valid Share share, @PathVariable("shop-id") Integer id,Authentication connectedUser) {
-        shoppingService.shareShopping(share, id, connectedUser);
+    public ResponseEntity<String> shareShopping(@Valid Share share, @PathVariable("shop-id") Integer id) {
+        shoppingService.shareShopping(share, id);
         return ResponseEntity.ok("Shopping archived successfully");
     }
 

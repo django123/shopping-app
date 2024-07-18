@@ -27,12 +27,12 @@ import org.springframework.context.annotation.Configuration;
                 ),
                 title = "Shopping List App rewritting",
                 description = "Shopping List App rewritting Spring Boot 3+ Spring Security 6+ example",
-                version = "0.0.1-SNAPSHOT"
+                version = "0.0.1"
         ),
         servers = {
                 @Server(
-                        description = "Development",
-                        url = "http://localhost:8089"
+                        description = "Local ENV",
+                        url = "http://localhost:8089/api/v1"
 
                 )
         },
